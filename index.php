@@ -29,7 +29,7 @@ function binary_search(array $list, $item)
 /*
  * АЛГОРИТМ СОРТИРОВКИ ВЫБОРОМ
  * Algorithm of selection sort
- * Время алгоритма O(n x n)
+ * Время алгоритма O(n2)
 */
 function findSmallest(array $arr)
 {
@@ -241,6 +241,7 @@ function binary_search_r(array $list, int $item, int $left, int $right)
 /*
  * Алгоритм быстрой сортировки
  * Algorithm of quicksort
+ * O(n x log n)
  */
 function quicksort(array $arr)
 {
@@ -264,4 +265,47 @@ function quicksort(array $arr)
         return array_merge(quicksort($less), [$pivot], quicksort($greater));
     }
 }
+
 //print_r(quicksort([10, 5, 2, 3, 7, 20, 11, 4]));
+
+
+/*
+ * Алгоритм поиска в ширину
+ * Algorithm of breadth-first search
+ * O(V + E)
+*/
+
+function has_double_gg_in_name($name) {
+    return (bool)preg_match('/gg/', $name);
+}
+
+$graph = [];
+$graph['You'] = ['Alice', 'Bob', 'Claire'];
+$graph['Bob'] = ['Anuj', 'Peggy'];
+$graph['Alice'] = ['Peggy'];
+$graph['Claire'] = ['Thom', 'Jonny'];
+$graph['Anuj'] = [];
+$graph['Peggy'] = [];
+$graph['Thom'] = [];
+$graph['Jonn'] = [];
+
+function breadthSearch($graph, $name) {
+    $search_queue = [];
+    $search_queue = array_merge($search_queue, $graph[$name]);
+    $searched = [];
+    while (!empty($search_queue)) {
+        $person = array_shift($search_queue);
+        if(!in_array($person, $searched)) {
+            if(has_double_gg_in_name($person)) {
+                print $person . ' has double GG in name!';
+                return true;
+            } else {
+                $search_queue = array_merge($search_queue, $graph[$person]);
+                $searched[] = $person;
+            }
+        }
+    }
+    return false;
+}
+
+//breadthSearch($graph, 'You');
