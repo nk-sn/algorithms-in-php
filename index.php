@@ -1,10 +1,11 @@
 <?php
+
 /*
  * АЛГОРИТМ БИНАРНОГО ПОИСКА
  * Algorithm of binary search
  * Время алгоритма O(log n)
 */
-function binary_search(array $list, $item)
+function binarySearch(array $list, $item)
 {
     $low = 0;
     $high = count($list) - 1;
@@ -23,8 +24,7 @@ function binary_search(array $list, $item)
     return null;
 }
 
-//print binary_search([1, 3, 5, 7, 9], 7);
-
+//print binarySearch([1, 3, 5, 7, 9], 7);
 
 /*
  * АЛГОРИТМ СОРТИРОВКИ ВЫБОРОМ
@@ -34,14 +34,14 @@ function binary_search(array $list, $item)
 function findSmallest(array $arr)
 {
     $smallest = $arr[0];
-    $smallest_index = 0;
+    $smallestIndex = 0;
     for ($i = 0; $i < count($arr); $i++) {
         if ($arr[$i] < $smallest) {
             $smallest = $arr[$i];
-            $smallest_index = $i;
+            $smallestIndex = $i;
         }
     }
-    return $smallest_index;
+    return $smallestIndex;
 }
 
 function selectionSort(array $arr)
@@ -58,7 +58,6 @@ function selectionSort(array $arr)
 }
 
 //print_r(selectionSort([5, 3, 6, 2, 10]));
-
 
 /*
  * АЛГОРИТМЫ РЕКУРСИИ
@@ -156,20 +155,20 @@ function findFibonacciRecursively($n)
  * Алгоритм Евклида
  * Evklid's algorithm
  */
-function Evklid($a, $b)
+function evklid($a, $b)
 {
     if ($a === $b) {
         return $a;
     } elseif ($a > $b) {
         $a = $a % $b === 0 ? $b : $a - $b * (int)($a / $b);
-        return Evklid($a, $b);
+        return evklid($a, $b);
     } else {
         $b = $b % $a === 0 ? $a : $b - $a * (int)($b / $a);
-        return Evklid($a, $b);
+        return evklid($a, $b);
     }
 }
 
-//print Evklid(1680, 640);
+//print evklid(1680, 640);
 
 /*
  * Рекурсивная функция нахождения суммы массива
@@ -224,19 +223,19 @@ function findArrGreater(array $a)
  * Алгоритм бинарного поиска рекурсией
  * Algorithm of binary search by recursion
 */
-function binary_search_r(array $list, int $item, int $left, int $right)
+function binarySearchRecursive(array $list, int $item, int $left, int $right)
 {
     $mid = (int)(($left + $right) / 2);
     if ($list[$mid] === $item) {
         return $mid;
     } elseif ($list[$mid] > $item) {
-        return binary_search_r($list, $item, $left, $mid - 1);
+        return binarySearchRecursive($list, $item, $left, $mid - 1);
     } else {
-        return binary_search_r($list, $item, $mid + 1, $right);
+        return binarySearchRecursive($list, $item, $mid + 1, $right);
     }
 }
 
-//print binary_search_r([1, 3, 5, 7, 9], 7, 0, 4);
+//print binarySearchRecursive([1, 3, 5, 7, 9], 7, 0, 4);
 
 /*
  * Алгоритм быстрой сортировки
@@ -268,15 +267,15 @@ function quicksort(array $arr)
 
 //print_r(quicksort([10, 5, 2, 3, 7, 20, 11, 4]));
 
-
 /*
  * Алгоритм поиска в ширину
  * Algorithm of breadth-first search
  * O(V + E)
 */
 
-function has_double_gg_in_name($name) {
-    return (bool)preg_match('/gg/', $name);
+function hasLettersInName($name, $letters)
+{
+    return (bool)preg_match("/{$letters}/", $name);
 }
 
 $graph = [];
@@ -289,18 +288,19 @@ $graph['Peggy'] = [];
 $graph['Thom'] = [];
 $graph['Jonn'] = [];
 
-function breadthSearch($graph, $name) {
-    $search_queue = [];
-    $search_queue = array_merge($search_queue, $graph[$name]);
+function breadthSearch($graph, $name)
+{
+    $searchQueue = [];
+    $searchQueue = array_merge($searchQueue, $graph[$name]);
     $searched = [];
-    while (!empty($search_queue)) {
-        $person = array_shift($search_queue);
-        if(!in_array($person, $searched)) {
-            if(has_double_gg_in_name($person)) {
+    while (!empty($searchQueue)) {
+        $person = array_shift($searchQueue);
+        if (!in_array($person, $searched)) {
+            if (hasLettersInName($person, 'gg')) {
                 print $person . ' has double GG in name!';
                 return true;
             } else {
-                $search_queue = array_merge($search_queue, $graph[$person]);
+                $searchQueue = array_merge($searchQueue, $graph[$person]);
                 $searched[] = $person;
             }
         }
